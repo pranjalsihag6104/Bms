@@ -42,7 +42,7 @@ const AuthorStatsDetails = () => {
     const fetchBlogs = async () => {
       try {
         const res = await axios.get(
-          "https://bms-nwl5.onrender.com/blog/get-own-blogs",
+          "https://bms-nwl5.onrender.com/api/v1/blog/get-own-blogs",
           { withCredentials: true }
         );
         if (res.data.success) {
@@ -62,7 +62,7 @@ const AuthorStatsDetails = () => {
 
     try {
       const res = await axios.delete(
-        `https://bms-nwl5.onrender.com/blog/${deleteTarget}`,
+        `https://bms-nwl5.onrender.com/api/v1/blog/${deleteTarget}`,
         { withCredentials: true }
       );
 

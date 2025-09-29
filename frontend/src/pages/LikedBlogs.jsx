@@ -8,7 +8,7 @@ const LikedBlogs = () => {
   useEffect(() => {
     async function fetchLiked() {
       try {
-        const res = await axios.get("https://bms-nwl5.onrender.com/user/liked", { withCredentials: true });
+        const res = await axios.get("https://bms-nwl5.onrender.com/api/v1/user/liked", { withCredentials: true });
         setLiked(res.data.likedArticles);
       } catch (error) {
         console.error("Error fetching liked blogs:", error);

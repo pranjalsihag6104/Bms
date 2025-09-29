@@ -14,7 +14,7 @@ const PopularAuthors = () => {
   // ✅ Fetch all authors from DB
   const getAllUsers = async () => {
     try {
-      const res = await axios.get("https://bms-nwl5.onrender.com/user/all-users");
+      const res = await axios.get("https://bms-nwl5.onrender.com/api/v1/user/all-users");
       if (res.data.success) {
         const authors = res.data.users.filter((u) => u.role === "author");
         setAllAuthors(authors);

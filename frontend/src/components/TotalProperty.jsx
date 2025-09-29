@@ -22,7 +22,7 @@ const TotalProperty = () => {
 
   const fetchAuthorStats = async () => {
     try {
-      const res = await axios.get("https://bms-nwl5.onrender.com/user/author/stats", {
+      const res = await axios.get("https://bms-nwl5.onrender.com/api/v1/user/author/stats", {
         withCredentials: true,
       });
       if (res.data.success) {

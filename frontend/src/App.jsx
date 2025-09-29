@@ -264,7 +264,7 @@ const App = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("https://bms-nwl5.onrender.com/user/profile", {
+        const res = await axios.get("https://bms-nwl5.onrender.com/api/v1/user/profile", {
           withCredentials: true,
         });
         if (res.data.success) {

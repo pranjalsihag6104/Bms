@@ -41,7 +41,7 @@ const Signup = () => {
     console.log(userr)
 
     try {
-      const response = await axios.post(`https://bms-nwl5.onrender.com/user/register`, userr, {
+      const response = await axios.post(`https://bms-nwl5.onrender.com/api/v1/user/register`, userr, {
         headers: {
           "Content-Type": "application/json",
         },

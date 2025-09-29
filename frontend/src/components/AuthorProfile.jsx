@@ -74,7 +74,7 @@ const AuthorProfile = () => {
         try {
             setLoading(true);
             const res = await axios.put(
-                `https://bms-nwl5.onrender.com/user/profile/update`,
+                `https://bms-nwl5.onrender.com/api/v1/user/profile/update`,
                 formData,
                 {
                     headers: {

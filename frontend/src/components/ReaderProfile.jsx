@@ -73,7 +73,7 @@ const ReaderProfile = () => {
   //   try {
   //     setLoading(true);
   //     const res = await axios.put(
-  //       "https://bms-nwl5.onrender.com/user/profile/update",
+  //       "https://bms-nwl5.onrender.com/api/v1/user/profile/update",
   //       formData,
   //       {
   //         headers: { "Content-Type": "multipart/form-data" },
@@ -103,7 +103,7 @@ const ReaderProfile = () => {
     try {
       setLoading(true);
       const res = await axios.put(
-        "https://bms-nwl5.onrender.com/user/profile/update",
+        "https://bms-nwl5.onrender.com/api/v1/user/profile/update",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

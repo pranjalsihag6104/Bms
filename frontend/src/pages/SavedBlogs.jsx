@@ -8,7 +8,7 @@ const SavedBlogs = () => {
   useEffect(() => {
     async function fetchSaved() {
       try {
-        const res = await axios.get("https://bms-nwl5.onrender.com/user/saved", { withCredentials: true });
+        const res = await axios.get("https://bms-nwl5.onrender.com/api/v1/user/saved", { withCredentials: true });
         setSaved(res.data.savedArticles);
       } catch (error) {
         console.error("Error fetching saved blogs:", error);

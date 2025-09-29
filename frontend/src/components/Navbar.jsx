@@ -39,7 +39,7 @@
 //   const logoutHandler = async (e) => {
 
 //     try {
-//       const res = await axios.get(`https://bms-nwl5.onrender.com/user/logout`, { withCredentials: true });
+//       const res = await axios.get(`https://bms-nwl5.onrender.com/api/v1/user/logout`, { withCredentials: true });
 //       if (res.data.success) {
 //         navigate("/")
 //         dispatch(setUser(null))
@@ -216,7 +216,7 @@ const Navbar = () => {
   const logoutHandler = async (e) => {
 
     try {
-      const res = await axios.get(`https://bms-nwl5.onrender.com/user/logout`, { withCredentials: true });
+      const res = await axios.get(`https://bms-nwl5.onrender.com/api/v1/user/logout`, { withCredentials: true });
       if (res.data.success) {
         navigate("/")
         dispatch(setUser(null))

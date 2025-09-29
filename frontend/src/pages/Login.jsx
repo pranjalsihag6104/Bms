@@ -36,7 +36,7 @@ const Login = () => {
 
     try {
       dispatch(setLoading(true))
-      const response = await axios.post(`https://bms-nwl5.onrender.com/user/login`, input, {
+      const response = await axios.post(`https://bms-nwl5.onrender.com/api/v1/user/login`, input, {
         headers: {
           "Content-Type": "application/json"
         },
