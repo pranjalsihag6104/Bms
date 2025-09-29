@@ -1,4 +1,4 @@
-import React, { useEffect,useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
     Breadcrumb,
     // BreadcrumbEllipsis,
@@ -34,56 +34,56 @@ const BlogView = () => {
     const [liked, setLiked] = useState(selectedBlog?.likes.includes(user?._id) || false);
     const [saved, setSaved] = useState(false);
     useEffect(() => {
-  if (user && user.savedArticles && selectedBlog?._id) {
-    const isAlreadySaved = user.savedArticles.includes(selectedBlog._id);
-    setSaved(isAlreadySaved);
-  }
-}, [user, selectedBlog]);
-
-const [viewCounted, setViewCounted] = useState(false);
-const bottomRef = useRef(null);
-useEffect(() => {
-  if (!selectedBlog) return;
-
-  const hasViewedKey = `viewed-${selectedBlog._id}`;
-
-  // ✅ Check if user already viewed this blog
-  const alreadyViewed = localStorage.getItem(hasViewedKey);
-  if (alreadyViewed) {
-    setViewCounted(true);
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    async (entries) => {
-      const entry = entries[0];
-      if (entry.isIntersecting && !viewCounted) {
-        try {
-          // ✅ Prevent multiple triggers
-          localStorage.setItem(hasViewedKey, "true");
-          setViewCounted(true);
-
-          await axios.put(
-            `http://localhost:8000/api/v1/blog/${selectedBlog._id}/view`,
-            {},
-            { withCredentials: true }
-          );
-
-          console.log("✅ View incremented for blog:", selectedBlog._id);
-        } catch (error) {
-          console.error("❌ Error incrementing blog view:", error);
+        if (user && user.savedArticles && selectedBlog?._id) {
+            const isAlreadySaved = user.savedArticles.includes(selectedBlog._id);
+            setSaved(isAlreadySaved);
         }
-      }
-    },
-    { threshold: 0.8 } // Trigger when 80% of target is visible
-  );
+    }, [user, selectedBlog]);
 
-  if (bottomRef.current) observer.observe(bottomRef.current);
+    const [viewCounted, setViewCounted] = useState(false);
+    const bottomRef = useRef(null);
+    useEffect(() => {
+        if (!selectedBlog) return;
 
-  return () => {
-    if (bottomRef.current) observer.unobserve(bottomRef.current);
-  };
-}, [selectedBlog, viewCounted]);
+        const hasViewedKey = `viewed-${selectedBlog._id}`;
+
+        // ✅ Check if user already viewed this blog
+        const alreadyViewed = localStorage.getItem(hasViewedKey);
+        if (alreadyViewed) {
+            setViewCounted(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            async (entries) => {
+                const entry = entries[0];
+                if (entry.isIntersecting && !viewCounted) {
+                    try {
+                        // ✅ Prevent multiple triggers
+                        localStorage.setItem(hasViewedKey, "true");
+                        setViewCounted(true);
+
+                        await axios.put(
+                            `https://bms-nwl5.onrender.com/blog/${selectedBlog._id}/view`,
+                            {},
+                            { withCredentials: true }
+                        );
+
+                        console.log("✅ View incremented for blog:", selectedBlog._id);
+                    } catch (error) {
+                        console.error("❌ Error incrementing blog view:", error);
+                    }
+                }
+            },
+            { threshold: 0.8 } // Trigger when 80% of target is visible
+        );
+
+        if (bottomRef.current) observer.observe(bottomRef.current);
+
+        return () => {
+            if (bottomRef.current) observer.unobserve(bottomRef.current);
+        };
+    }, [selectedBlog, viewCounted]);
 
 
 
@@ -93,7 +93,7 @@ useEffect(() => {
     const likeOrDislikeHandler = async () => {
         try {
             const action = liked ? 'dislike' : 'like';
-            const res = await axios.get(`http://localhost:8000/api/v1/blog/${selectedBlog?._id}/${action}`, { withCredentials: true })
+            const res = await axios.get(`https://bms-nwl5.onrender.com/blog/${selectedBlog?._id}/${action}`, { withCredentials: true })
             if (res.data.success) {
                 const updatedLikes = liked ? blogLike - 1 : blogLike + 1;
                 setBlogLike(updatedLikes);
@@ -124,33 +124,33 @@ useEffect(() => {
     }
 
 
-const handleSaveToggle = async () => {
-  try {
-    const action = saved ? "unsave" : "save";
-    const res = await axios.get(
-      `http://localhost:8000/api/v1/blog/${selectedBlog._id}/${action}`,
-      { withCredentials: true }
-    );
+    const handleSaveToggle = async () => {
+        try {
+            const action = saved ? "unsave" : "save";
+            const res = await axios.get(
+                `https://bms-nwl5.onrender.com/blog/${selectedBlog._id}/${action}`,
+                { withCredentials: true }
+            );
 
-    if (res.data.success) {
-      setSaved(!saved);
+            if (res.data.success) {
+                setSaved(!saved);
 
-      // ✅ update user in Redux to keep store consistent
-      const updatedUser = { ...user };
-      if (!saved) {
-        updatedUser.savedArticles = [...(user.savedArticles || []), selectedBlog._id];
-      } else {
-        updatedUser.savedArticles = user.savedArticles.filter(id => id !== selectedBlog._id);
-      }
-      dispatch(setUser(updatedUser));
+                // ✅ update user in Redux to keep store consistent
+                const updatedUser = { ...user };
+                if (!saved) {
+                    updatedUser.savedArticles = [...(user.savedArticles || []), selectedBlog._id];
+                } else {
+                    updatedUser.savedArticles = user.savedArticles.filter(id => id !== selectedBlog._id);
+                }
+                dispatch(setUser(updatedUser));
 
-      toast.success(res.data.message);
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error(error.response?.data?.message || "Failed to save blog");
-  }
-};
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data?.message || "Failed to save blog");
+        }
+    };
 
 
     const handleShare = (blogId) => {
@@ -228,9 +228,9 @@ const handleSaveToggle = async () => {
 
                 {/* <p className='' dangerouslySetInnerHTML={{ __html: selectedBlog.description }} /> */}
                 <div
-  className="prose prose-lg dark:prose-invert max-w-none leading-relaxed"
-  dangerouslySetInnerHTML={{ __html: selectedBlog.description }}
-></div>
+                    className="prose prose-lg dark:prose-invert max-w-none leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: selectedBlog.description }}
+                ></div>
 
                 <div className='mt-10'>
                     {/* Tags */}
@@ -240,9 +240,9 @@ const handleSaveToggle = async () => {
                         <Badge variant="secondary">Web Development</Badge>
                         <Badge variant="secondary">JavaScript</Badge>
                     </div>
-                          <div className="flex justify-center my-8">
-      <ScrollToTopButton />
-      </div>
+                    <div className="flex justify-center my-8">
+                        <ScrollToTopButton />
+                    </div>
 
                     {/* Engagement */}
                     <div className="flex items-center justify-between border-y dark:border-gray-800 border-gray-300 py-4 mb-8">

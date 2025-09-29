@@ -9,7 +9,7 @@ const Profile = () => {
   useEffect(() => {
     async function fetchUserProfile() {
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/user/profile", {
+        const res = await axios.get("https://bms-nwl5.onrender.com/user/profile", {
           withCredentials: true,
         });
         setUser(res.data.user);

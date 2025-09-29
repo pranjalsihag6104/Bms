@@ -230,10 +230,10 @@ const router = createBrowserRouter([
         path: "my-comments",
         element: <MyComments />
       },
-       {
-      path: "stats-details",
-      element: <AuthorStatsDetails />,
-    },
+      {
+        path: "stats-details",
+        element: <AuthorStatsDetails />,
+      },
     ],
   },
   {
@@ -261,22 +261,22 @@ const router = createBrowserRouter([
 const App = () => {
   const dispatch = useDispatch();
 
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/api/v1/user/profile", {
-        withCredentials: true,
-      });
-      if (res.data.success) {
-        dispatch(setUser(res.data.user)); // ✅ restore user in Redux
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get("https://bms-nwl5.onrender.com/user/profile", {
+          withCredentials: true,
+        });
+        if (res.data.success) {
+          dispatch(setUser(res.data.user)); // ✅ restore user in Redux
+        }
+      } catch (error) {
+        console.log("User not logged in or token expired");
       }
-    } catch (error) {
-      console.log("User not logged in or token expired");
-    }
-  };
+    };
 
-  fetchUser();
-}, [dispatch]);
+    fetchUser();
+  }, [dispatch]);
 
   return <RouterProvider router={router} />;
 };

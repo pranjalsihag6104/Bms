@@ -15,17 +15,17 @@ const CreateBlog = () => {
     const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
-    const {blog} = useSelector(store=>store.blog)
+    const { blog } = useSelector(store => store.blog)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const getSelectedCategory = (value) => {
         setCategory(value)
     }
     const createBlogHandler = async () => {
-        
+
         try {
             setLoading(true)
-            const res = await axios.post(`http://localhost:8000/api/v1/blog/`, { title, category }, {
+            const res = await axios.post(`https://bms-nwl5.onrender.com/blog/`, { title, category }, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -48,42 +48,42 @@ const CreateBlog = () => {
     return (
         <div className='p-4 md:pr-20 h-screen md:ml-[320px] pt-20'>
             <Card className="md:p-10 p-4 dark:bg-gray-800">
-            <h1 className='text-2xl font-bold'>Lets create blog</h1>
-            <p>We can write something here</p>
-            <div className='mt-10 '>
-                <div>
-                    <Label>Title</Label>
-                    <Input type="text" placeholder="Your Blog Name" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-white dark:bg-gray-700" />
+                <h1 className='text-2xl font-bold'>Lets create blog</h1>
+                <p>We can write something here</p>
+                <div className='mt-10 '>
+                    <div>
+                        <Label>Title</Label>
+                        <Input type="text" placeholder="Your Blog Name" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-white dark:bg-gray-700" />
+                    </div>
+                    <div className='mt-4 mb-5'>
+                        <Label>Category</Label>
+                        <Select onValueChange={getSelectedCategory}>
+                            <SelectTrigger className="w-[180px] bg-white dark:bg-gray-700">
+                                <SelectValue placeholder="Select a category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Category</SelectLabel>
+                                    <SelectItem value="Common Conditions">Common Conditions</SelectItem>
+                                    <SelectItem value="Mental Health">Mental Health</SelectItem>
+                                    <SelectItem value="Skin and hair health">Skin and hair health</SelectItem>
+                                    <SelectItem value="Lifestyle and Nutrition">Lifestyle and Nutrition</SelectItem>
+                                    <SelectItem value="Substance use and addictions">Substance use and addictions</SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className='flex gap-2'>
+                        {/* <Button  variant="outline">Cancel</Button> */}
+                        <Button className="" disabled={loading} onClick={createBlogHandler}>
+                            {
+                                loading ? <><Loader2 className='mr-1 h-4 w-4 animate-spin' />Please wait</> : "Create"
+                            }
+                        </Button>
+                    </div>
                 </div>
-                <div className='mt-4 mb-5'>
-                    <Label>Category</Label>
-                    <Select onValueChange={getSelectedCategory}>
-                        <SelectTrigger className="w-[180px] bg-white dark:bg-gray-700">
-                            <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Category</SelectLabel>
-                                <SelectItem value="Common Conditions">Common Conditions</SelectItem>
-                                <SelectItem value="Mental Health">Mental Health</SelectItem>
-                                <SelectItem value="Skin and hair health">Skin and hair health</SelectItem>
-                                <SelectItem value="Lifestyle and Nutrition">Lifestyle and Nutrition</SelectItem>
-                                <SelectItem value="Substance use and addictions">Substance use and addictions</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className='flex gap-2'>
-                    {/* <Button  variant="outline">Cancel</Button> */}
-                    <Button className="" disabled={loading} onClick={createBlogHandler}>
-                        {
-                            loading ? <><Loader2 className='mr-1 h-4 w-4 animate-spin' />Please wait</> : "Create"
-                        }
-                    </Button>
-                </div>
-            </div>
             </Card>
-           
+
         </div>
     )
 }

@@ -17,7 +17,7 @@ const Blog = () => {
     useEffect(() => {
         const getAllPublsihedBlogs = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/blog/get-published-blogs`, { withCredentials: true })
+                const res = await axios.get(`https://bms-nwl5.onrender.com/blog/get-published-blogs`, { withCredentials: true })
                 if (res.data.success) {
                     dispatch(setBlog(res.data.blogs))
                 }
@@ -27,7 +27,7 @@ const Blog = () => {
             }
         }
         getAllPublsihedBlogs()
-    },[])
+    }, [])
 
     return (
         <div className='pt-16'>
@@ -43,9 +43,9 @@ const Blog = () => {
                     })
                 }
             </div>
-                  <div className="flex justify-center my-8">
-      <ScrollToTopButton />
-      </div>
+            <div className="flex justify-center my-8">
+                <ScrollToTopButton />
+            </div>
         </div>
     )
 }

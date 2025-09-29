@@ -73,7 +73,7 @@ const YourBlog = () => {
 
     const getOwnBlog = async () => {
         try {
-            const res = await axios.get(`http://localhost:8000/api/v1/blog/get-own-blogs`, { withCredentials: true })
+            const res = await axios.get(`https://bms-nwl5.onrender.com/blog/get-own-blogs`, { withCredentials: true })
             if (res.data.success) {
                 dispatch(setBlog(res.data.blogs))
             }
@@ -84,7 +84,7 @@ const YourBlog = () => {
     }
     const deleteBlog = async (id) => {
         try {
-            const res = await axios.delete(`http://localhost:8000/api/v1/blog/${id}`, { withCredentials: true })
+            const res = await axios.delete(`https://bms-nwl5.onrender.com/blog/${id}`, { withCredentials: true })
             if (res.data.success) {
                 const updatedBlogData = blog.filter((blogItem) => blogItem?._id !== id);
                 dispatch(setBlog(updatedBlogData))
@@ -141,9 +141,9 @@ const YourBlog = () => {
                                         {/* <Eye className='cursor-pointer' onClick={() => navigate(`/blogs/${item._id}`)} />
                                         <Edit className='cursor-pointer' onClick={() => navigate(`/dashboard/write-blog/${item._id}`)} />
                                         <Trash2 className='cursor-pointer' onClick={() => deleteBlog(item._id)} /> */}
-                                        
+
                                         <DropdownMenu>
-                                            <DropdownMenuTrigger><BsThreeDotsVertical/></DropdownMenuTrigger>
+                                            <DropdownMenuTrigger><BsThreeDotsVertical /></DropdownMenuTrigger>
                                             <DropdownMenuContent className="w-[180px]">
                                                 <DropdownMenuItem onClick={() => navigate(`/dashboard/write-blog/${item._id}`)}><Edit />Edit</DropdownMenuItem>
                                                 <DropdownMenuItem className="text-red-500" onClick={() => deleteBlog(item._id)}><Trash2 />Delete</DropdownMenuItem>

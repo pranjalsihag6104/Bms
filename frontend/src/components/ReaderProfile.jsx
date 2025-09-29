@@ -9,15 +9,15 @@ import axios from "axios";
 import userLogo from "../assets/user.jpg";
 import { Loader2 } from "lucide-react";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "../components/ui/dialog"
 import { Textarea } from '../components/ui/textarea'
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/authSlice";
 
 const ReaderProfile = () => {
@@ -25,30 +25,30 @@ const ReaderProfile = () => {
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState({
-  firstName: "",
-  lastName: "",
-  dob: "",
-  city: "",
-  occupation: "",
-  file: "",
-});
+    firstName: "",
+    lastName: "",
+    dob: "",
+    city: "",
+    occupation: "",
+    file: "",
+  });
 
-// Whenever user changes in Redux, update local input state
-React.useEffect(() => {
-  if (user) {
-    setInput({
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      dob: user.dob || "",
-      city: user.city || "",
-      occupation: user.occupation || "",
-      file: user.photoUrl || "",
-    });
-  }
-}, [user]);
+  // Whenever user changes in Redux, update local input state
+  React.useEffect(() => {
+    if (user) {
+      setInput({
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        dob: user.dob || "",
+        city: user.city || "",
+        occupation: user.occupation || "",
+        file: user.photoUrl || "",
+      });
+    }
+  }, [user]);
 
 
   const changeEventHandler = (e) => {
@@ -73,7 +73,7 @@ React.useEffect(() => {
   //   try {
   //     setLoading(true);
   //     const res = await axios.put(
-  //       "http://localhost:8000/api/v1/user/profile/update",
+  //       "https://bms-nwl5.onrender.com/user/profile/update",
   //       formData,
   //       {
   //         headers: { "Content-Type": "multipart/form-data" },
@@ -83,7 +83,7 @@ React.useEffect(() => {
 
   //     if (res.data.success) {
   //       toast.success("Profile updated successfully!");
-        
+
   //     }
   //   } catch (error) {
   //     console.error(error);
@@ -94,47 +94,47 @@ React.useEffect(() => {
   // };
 
   const submitHandler = async (e) => {
-  e.preventDefault();
-  const formData = new FormData();
-  Object.keys(input).forEach((key) => {
-    if (input[key]) formData.append(key, input[key]);
-  });
+    e.preventDefault();
+    const formData = new FormData();
+    Object.keys(input).forEach((key) => {
+      if (input[key]) formData.append(key, input[key]);
+    });
 
-  try {
-    setLoading(true);
-    const res = await axios.put(
-      "http://localhost:8000/api/v1/user/profile/update",
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
+    try {
+      setLoading(true);
+      const res = await axios.put(
+        "https://bms-nwl5.onrender.com/user/profile/update",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
+        }
+      );
+
+      if (res.data.success) {
+        toast.success("Profile updated successfully!");
+
+        // ✅ Update Redux store so profile info updates instantly
+        if (res.data.user) {
+          dispatch(setUser(res.data.user));
+        }
+
+        // ✅ Update local state
+        setInput((prev) => ({
+          ...prev,
+          ...res.data.user,
+        }));
+
+        // ✅ Close dialog
+        setOpen(false);
       }
-    );
-
-    if (res.data.success) {
-      toast.success("Profile updated successfully!");
-
-      // ✅ Update Redux store so profile info updates instantly
-      if (res.data.user) {
-        dispatch(setUser(res.data.user));
-      }
-
-      // ✅ Update local state
-      setInput((prev) => ({
-        ...prev,
-        ...res.data.user,
-      }));
-
-      // ✅ Close dialog
-      setOpen(false);
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to update profile");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error(error);
-    toast.error(error.response?.data?.message || "Failed to update profile");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
 
   return (
@@ -147,7 +147,7 @@ React.useEffect(() => {
               <AvatarImage src={user?.photoUrl || userLogo} />
             </Avatar>
             <h1 className="text-center font-semibold text-xl text-gray-700 dark:text-gray-300 my-3">
-              {user?.firstName +" "+ user?.lastName || "Reader"}
+              {user?.firstName + " " + user?.lastName || "Reader"}
             </h1>
           </div>
 
@@ -157,136 +157,136 @@ React.useEffect(() => {
               Welcome {user?.firstName}!
             </h1>
             <p>
-              <span className="font-semibold">Full Name:</span> {user?.firstName +" "+ user?.lastName}
+              <span className="font-semibold">Full Name:</span> {user?.firstName + " " + user?.lastName}
             </p>
             <p>
               <span className="font-semibold">Email:</span> {user?.email}
             </p>
             <p>
-              <span className="font-semibold">Occupation:</span> {user?.occupation||'not specified'}
+              <span className="font-semibold">Occupation:</span> {user?.occupation || 'not specified'}
             </p>
-                        <p>
+            <p>
               <span className="font-semibold">City:</span> {user?.city || "Not specified"}
             </p>
-                        <p>
+            <p>
               <span className="font-semibold">Dob:</span> {user?.dob
-                  ? new Date(user.dob).toLocaleDateString()
-                  : "Not Specified"}
+                ? new Date(user.dob).toLocaleDateString()
+                : "Not Specified"}
             </p>
 
 
 
 
-            
+
 
           </div>
-          
+
           <div>
             {/* Edit Form */}
-            
+
             <Dialog open={open} onOpenChange={setOpen}>
-                            <Button onClick={() => setOpen(true)}>Edit Profile</Button>
-                            <DialogContent className="md:w-[425px]">
-                                <DialogHeader>
-                                    <DialogTitle className="text-center">Edit Profile</DialogTitle>
-                                    <DialogDescription className="text-center">
-                                        Update your profile information below.
-                                    </DialogDescription>
-                                </DialogHeader>
+              <Button onClick={() => setOpen(true)}>Edit Profile</Button>
+              <DialogContent className="md:w-[425px]">
+                <DialogHeader>
+                  <DialogTitle className="text-center">Edit Profile</DialogTitle>
+                  <DialogDescription className="text-center">
+                    Update your profile information below.
+                  </DialogDescription>
+                </DialogHeader>
 
-                                <div className="grid gap-4 py-4">
-                                    {/* Name */}
-                                    <div className="flex gap-2">
-                                        <div>
-                                            <Label>First Name</Label>
-                                            <Input
-                                                id="firstName"
-                                                name="firstName"
-                                                value={input.firstName}
-                                                onChange={changeEventHandler}
-                                                placeholder="First Name"
-                                                type="text"
-                                                className="text-gray-500"
-                                            />
-                                        </div>
-                                        <div>
-                                            <Label>Last Name</Label>
-                                            <Input
-                                                id="lastName"
-                                                name="lastName"
-                                                value={input.lastName}
-                                                onChange={changeEventHandler}
-                                                placeholder="Last Name"
-                                                className="text-gray-500"
-                                            />
-                                        </div>
-                                    </div>
+                <div className="grid gap-4 py-4">
+                  {/* Name */}
+                  <div className="flex gap-2">
+                    <div>
+                      <Label>First Name</Label>
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        value={input.firstName}
+                        onChange={changeEventHandler}
+                        placeholder="First Name"
+                        type="text"
+                        className="text-gray-500"
+                      />
+                    </div>
+                    <div>
+                      <Label>Last Name</Label>
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        value={input.lastName}
+                        onChange={changeEventHandler}
+                        placeholder="Last Name"
+                        className="text-gray-500"
+                      />
+                    </div>
+                  </div>
 
-                                    {/* Occupation & DOB */}
-                                    <div className="flex gap-2">
-                                        <div className="w-1/2">
-                                            <Label>Occupation</Label>
-                                            <Input
-                                                id="occupation"
-                                                name="occupation"
-                                                value={input.occupation}
-                                                onChange={changeEventHandler}
-                                                placeholder="Enter Occupation"
-                                                className="text-gray-500"
-                                            />
-                                        </div>
-                                        <div className="w-1/2">
-                                            <Label>Date of Birth</Label>
-                                            <Input
-                                                id="dob"
-                                                name="dob"
-                                                value={input.dob}
-                                                onChange={changeEventHandler}
-                                                type="date"
-                                                className="text-gray-500"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                      <div className="w-1/2">
-                                            <Label>City</Label>
-                                            <Input
-                                                id="city"
-                                                name="city"
-                                                value={input.city}
-                                                onChange={changeEventHandler}
-                                                placeholder="Enter Your City"
-                                                className="text-gray-500"
-                                            />
-                                        </div>
-                                    </div>
+                  {/* Occupation & DOB */}
+                  <div className="flex gap-2">
+                    <div className="w-1/2">
+                      <Label>Occupation</Label>
+                      <Input
+                        id="occupation"
+                        name="occupation"
+                        value={input.occupation}
+                        onChange={changeEventHandler}
+                        placeholder="Enter Occupation"
+                        className="text-gray-500"
+                      />
+                    </div>
+                    <div className="w-1/2">
+                      <Label>Date of Birth</Label>
+                      <Input
+                        id="dob"
+                        name="dob"
+                        value={input.dob}
+                        onChange={changeEventHandler}
+                        type="date"
+                        className="text-gray-500"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="w-1/2">
+                      <Label>City</Label>
+                      <Input
+                        id="city"
+                        name="city"
+                        value={input.city}
+                        onChange={changeEventHandler}
+                        placeholder="Enter Your City"
+                        className="text-gray-500"
+                      />
+                    </div>
+                  </div>
 
 
-                                    {/* Profile Picture */}
-                                    <div>
-                                        <Label>Profile Picture</Label>
-                                        <Input
-                                            id="file"
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={changeFileHandler}
-                                            className="w-full"
-                                        />
-                                    </div>
-                                </div>
+                  {/* Profile Picture */}
+                  <div>
+                    <Label>Profile Picture</Label>
+                    <Input
+                      id="file"
+                      type="file"
+                      accept="image/*"
+                      onChange={changeFileHandler}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
 
-                                <DialogFooter>
-                                    {loading ? (
-                                        <Button disabled>
-                                            <Loader2 className="mr-2 w-4 h-4 animate-spin" /> Please wait
-                                        </Button>
-                                    ) : (
-                                        <Button onClick={submitHandler}>Save Changes</Button>
-                                    )}
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
-                        </div>
+                <DialogFooter>
+                  {loading ? (
+                    <Button disabled>
+                      <Loader2 className="mr-2 w-4 h-4 animate-spin" /> Please wait
+                    </Button>
+                  ) : (
+                    <Button onClick={submitHandler}>Save Changes</Button>
+                  )}
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </Card>
       </div>
     </div>

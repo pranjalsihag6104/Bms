@@ -14,9 +14,9 @@ import { toast } from 'sonner'
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {loading}=useSelector(store=>store.auth)
+  const { loading } = useSelector(store => store.auth)
   const navigate = useNavigate()
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -36,7 +36,7 @@ const Login = () => {
 
     try {
       dispatch(setLoading(true))
-      const response = await axios.post(`http://localhost:8000/api/v1/user/login`, input, {
+      const response = await axios.post(`https://bms-nwl5.onrender.com/user/login`, input, {
         headers: {
           "Content-Type": "application/json"
         },
@@ -49,18 +49,18 @@ const Login = () => {
         toast.success(response.data.message)
       }
     } catch (error) {
-        if (error.response && error.response.data && error.response.data.message) {
-    toast.error(error.response.data.message); // show backend message
-  } else {
-    toast.error("Something went wrong. Please try again.");
-  }
-  console.log(error);
-    } finally{
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message); // show backend message
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+      console.log(error);
+    } finally {
       dispatch(setLoading(false))
     }
 
   };
-  
+
 
   return (
     <div className="flex  h-screen md:pt-14 md:h-[760px] ">
@@ -77,7 +77,7 @@ const Login = () => {
             <p className=' mt-2 text-sm font-serif text-center dark:text-gray-300'>Enter your details below to login your account</p>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4"  onSubmit={handleSubmit}>
+            <form className="space-y-4" onSubmit={handleSubmit}>
 
 
               <div>
@@ -111,12 +111,12 @@ const Login = () => {
 
               <Button type="submit" className="w-full">
                 {
-                  loading ?(
+                  loading ? (
                     <>
-                    <Loader2 className="mr-2 w-4 h-4 animate-spin"/>
-                    Please await
+                      <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                      Please await
                     </>
-                  ):("Login")
+                  ) : ("Login")
                 }
               </Button>
 

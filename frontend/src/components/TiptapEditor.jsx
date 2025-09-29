@@ -10,7 +10,7 @@ import { toast } from "sonner";
 export default function TiptapEditor({
   initialContent = "<p></p>",
   onChange,
-  uploadUrl = "http://localhost:8000/api/v1/blog/upload-image",
+  uploadUrl = "https://bms-nwl5.onrender.com/blog/upload-image",
 }) {
   const fileInputRef = useRef(null);
 

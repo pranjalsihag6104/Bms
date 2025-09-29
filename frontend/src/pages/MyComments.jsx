@@ -11,7 +11,7 @@ const MyComments = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/user/my-comments", {
+        const res = await axios.get("https://bms-nwl5.onrender.com/user/my-comments", {
           withCredentials: true,
         });
         if (res.data.success) {

@@ -42,7 +42,7 @@ const AuthorStatsDetails = () => {
     const fetchBlogs = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/blog/get-own-blogs",
+          "https://bms-nwl5.onrender.com/blog/get-own-blogs",
           { withCredentials: true }
         );
         if (res.data.success) {
@@ -56,13 +56,13 @@ const AuthorStatsDetails = () => {
     fetchBlogs();
   }, []);
 
-    // ✅ Delete Blog Function
+  // ✅ Delete Blog Function
   const deleteBlog = async () => {
     if (!deleteTarget) return;
 
     try {
       const res = await axios.delete(
-        `http://localhost:8000/api/v1/blog/${deleteTarget}`,
+        `https://bms-nwl5.onrender.com/blog/${deleteTarget}`,
         { withCredentials: true }
       );
 
@@ -83,10 +83,10 @@ const AuthorStatsDetails = () => {
   // Filter + Sort blogs
   useEffect(() => {
     let filtered = blogs.filter((b) => {
-  const matchesTitle = b.title.toLowerCase().includes(searchTerm.toLowerCase());
-  const matchesCategory = categoryFilter === "all" || b.category === categoryFilter;
-  return matchesTitle && matchesCategory;
-});
+      const matchesTitle = b.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = categoryFilter === "all" || b.category === categoryFilter;
+      return matchesTitle && matchesCategory;
+    });
 
 
     switch (sortBy) {
@@ -108,7 +108,7 @@ const AuthorStatsDetails = () => {
     }
 
     setFilteredBlogs(filtered);
-  }, [searchTerm, sortBy, blogs,categoryFilter]);
+  }, [searchTerm, sortBy, blogs, categoryFilter]);
 
   return (
     <div className="pt-20 md:ml-[320px] min-h-screen px-6">
@@ -155,34 +155,34 @@ const AuthorStatsDetails = () => {
               </SelectContent>
             </Select>
 
-    <Select
-  value={categoryFilter}
-  onValueChange={setCategoryFilter}
->
-  <SelectTrigger className="w-[180px]">
-    <SelectValue placeholder="All Categories" />
-  </SelectTrigger>
-  <SelectContent>
-    <SelectItem value="all">All Categories</SelectItem>
-    <SelectItem value="Common Conditions">Common Conditions</SelectItem>
-    <SelectItem value="Mental Health">Mental Health</SelectItem>
-    <SelectItem value="Skin and hair health">Skin and hair health</SelectItem>
-    <SelectItem value="Lifestyle and Nutrition">Lifestyle and Nutrition</SelectItem>
-    <SelectItem value="Substance use and addictions">Substance use and addictions</SelectItem>
-  </SelectContent>
-</Select>
+            <Select
+              value={categoryFilter}
+              onValueChange={setCategoryFilter}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="All Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="Common Conditions">Common Conditions</SelectItem>
+                <SelectItem value="Mental Health">Mental Health</SelectItem>
+                <SelectItem value="Skin and hair health">Skin and hair health</SelectItem>
+                <SelectItem value="Lifestyle and Nutrition">Lifestyle and Nutrition</SelectItem>
+                <SelectItem value="Substance use and addictions">Substance use and addictions</SelectItem>
+              </SelectContent>
+            </Select>
 
-    <button
-    onClick={() => {
-    setSearchTerm("");
-    setSortBy("date");
-    setCategoryFilter("all"); // ✅ Reset category filter to "all"
-    setFilteredBlogs(blogs);   // ✅ reset list
-    }}
-    className="px-4 py-2 bg-black text-white dark:bg-gray-700 rounded-lg text-sm hover:bg-gray-900 dark:hover:bg-gray-600 transition"
-  >
-    Reset
-  </button>
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                setSortBy("date");
+                setCategoryFilter("all"); // ✅ Reset category filter to "all"
+                setFilteredBlogs(blogs);   // ✅ reset list
+              }}
+              className="px-4 py-2 bg-black text-white dark:bg-gray-700 rounded-lg text-sm hover:bg-gray-900 dark:hover:bg-gray-600 transition"
+            >
+              Reset
+            </button>
           </div>
         </div>
 
@@ -260,7 +260,7 @@ const AuthorStatsDetails = () => {
                       Edit
                     </Link>
 
-                       {/* 🆕 Delete Confirmation Popup */}
+                    {/* 🆕 Delete Confirmation Popup */}
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <button
@@ -283,7 +283,7 @@ const AuthorStatsDetails = () => {
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction
-                            onClick={()=>deleteBlog()}
+                            onClick={() => deleteBlog()}
                             className="bg-red-600 hover:bg-red-700"
                           >
                             Yes, Delete

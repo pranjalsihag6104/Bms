@@ -12,7 +12,7 @@ const About = () => {
   // ✅ Fetch authors dynamically from backend
   const fetchAuthors = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/v1/user/all-users");
+      const res = await axios.get("https://bms-nwl5.onrender.com/user/all-users");
       if (res.data.success) {
         const filteredAuthors = res.data.users.filter((u) => u.role === "author");
         setAuthors(filteredAuthors);

@@ -191,7 +191,7 @@ export const getAllCommentsOnMyBlogs = async (req, res) => {
 export const commentReplyHandler = async (parentCommentId) => {
   try {
     const res = await axios.post(
-      `http://localhost:8000/api/v1/comment/${selectedBlog._id}/create`,
+      `https://bms-nwl5.onrender.com/comment/${selectedBlog._id}/create`,
       { content: replyText, parentId: parentCommentId },   // 👈 send replyText + parentCommentId
       {
         headers: { "Content-Type": "application/json" },

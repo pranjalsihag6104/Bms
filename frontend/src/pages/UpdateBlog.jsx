@@ -114,7 +114,7 @@ const UpdateBlog = () => {
 
     try {
       setLoading(true);
-      const res = await axios.put(`http://localhost:8000/api/v1/blog/${id}`, formData, {
+      const res = await axios.put(`https://bms-nwl5.onrender.com/blog/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
@@ -135,7 +135,7 @@ const UpdateBlog = () => {
   const togglePublishUnpublish = async (action) => {
     try {
       const res = await axios.patch(
-        `http://localhost:8000/api/v1/blog/${id}/toggle-publish`,
+        `https://bms-nwl5.onrender.com/blog/${id}/toggle-publish`,
         { action },
         { withCredentials: true }
       );
@@ -155,7 +155,7 @@ const UpdateBlog = () => {
 
   const deleteBlog = async () => {
     try {
-      const res = await axios.delete(`http://localhost:8000/api/v1/blog/delete/${id}`, {
+      const res = await axios.delete(`https://bms-nwl5.onrender.com/blog/delete/${id}`, {
         withCredentials: true,
       });
 
@@ -220,7 +220,7 @@ const UpdateBlog = () => {
             <TiptapEditor
               initialContent={content}
               onChange={setContent}
-              uploadUrl="http://localhost:8000/api/v1/blog/upload-image"
+              uploadUrl="https://bms-nwl5.onrender.com/blog/upload-image"
             />
           </div>
 
